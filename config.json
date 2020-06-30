@@ -1,0 +1,8 @@
+{
+  "hostname": "codetest.arvincheung.com",
+  "port": "8080",
+  "database": {
+    "url": "mongodb://127.0.0.1:27017/codetest"
+  },
+  "logdir": "./logs"
+}

@@ -1,0 +1,46 @@
+{
+  "name": "codetest",
+  "version": "1.0.0",
+  "description": "Init",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --verbose main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arvincheung/codetest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arvincheung/codetest/issues"
+  },
+  "homepage": "https://github.com/arvincheung/codetest#readme",
+  "dependencies": {
+    "async": "^3.2.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "moment": "^2.27.0",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.20",
+    "morgan": "^1.10.0",
+    "socket.io": "^2.3.0"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "ignore": [
+      ".DS_Store",
+      "node_modules/",
+      "logs/",
+      ".git/",
+      ".gitignore",
+      "package.json",
+      "package-lock.json",
+      "*.yml",
+      "Dockerfile",
+      "*.md"
+    ],
+    "delay": "500"
+  }
+}
