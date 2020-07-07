@@ -5,5 +5,5 @@ COPY package-lock.json .
 RUN npm install
 
 EXPOSE 8080
-CMD node main
+CMD NODE_ENV=prod node main
 COPY . .

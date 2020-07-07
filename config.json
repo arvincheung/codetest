@@ -2,7 +2,9 @@
   "hostname": "codetest.arvincheung.com",
   "port": "8080",
   "database": {
-    "url": "mongodb://127.0.0.1:27017/codetest"
+    "url": "mongodb://127.0.0.1:27017/codetest",
+    "prodUrl": "mongodb://mongo:27017/codetest"
   },
-  "logdir": "./logs"
+  "logdir": "./logs",
+  "secret": "ieh2pg06"
 }

@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Vote = new Schema({
-  userId: {type: String}
-});
-
 const Option = new Schema({
   name: {type: String},
-  votes: {type: [Vote]}
+  votes: {type: [String]}
 });
 
 const Campaign = new Schema({

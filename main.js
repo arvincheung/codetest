@@ -27,7 +27,8 @@ app.use(bodyParser.json());
 
 // Routers
 app.use('/api/v1', [
-  require('./routes/campaigns.route'),
+  require('./routes/campaign.route'),
+  require('./routes/user.route'),
   require('./routes')
 ]);
 
@@ -41,13 +42,14 @@ app.use((req, res, next) => {
 // error handler
 app.use((err, req, res, next) => {
   res.status(500).json({
+    success: false,
     message: 'Internal Server Error',
     err: err.message,
     stack: err.stack
   });
 });
 
-mongoose.connect(config.database.url, {useNewUrlParser: true});
+mongoose.connect(process.env.NODE_ENV == 'prod' ? config.database.prodUrl : config.database.url, {useNewUrlParser: true});
 // http server
 server.listen(config.port, () => {
   console.log(`Server listening on ${config.port}`);
