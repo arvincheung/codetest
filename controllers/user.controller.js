@@ -8,7 +8,7 @@ module.exports = {
     User.find({}, (err, users) => {
       if(err) return next(err);
       return res.json({
-        success: true,
+        ,
         users
       });
     });
@@ -21,7 +21,7 @@ module.exports = {
     user.save((err, rs) => {
       if(err) return next(err);
       res.json({
-        success: true,
+        ,
         user
       });
     });
@@ -42,7 +42,7 @@ module.exports = {
     }, (err, user) => {
       if(err) return next(err);
       return res.json({
-        success: true,
+        ,
         user
       });
     });
@@ -54,7 +54,7 @@ module.exports = {
     }, (err, user) => {
       if(err) return next(err);
       return res.json({
-        success: true,
+        ,
         user
       });
     });

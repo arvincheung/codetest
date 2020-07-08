@@ -1,0 +1,202 @@
+swagger: '2.0'
+info:
+  version: "1.0.0"
+  title: "codetest api"
+basePath: "/api/v1"
+tags:
+- name: "campaigns"
+- name: "user"
+schemes:
+- "http"
+paths:
+  /campaigns:
+    get:
+      tags:
+      - "campaigns"
+      summary: "Get all campaigns sorted by end time then by most votes"
+      responses:
+        "200":
+          description: "List of campaigns"
+          schema:
+            items:
+              $ref: '#/definitions/Campaign'
+  /campaign:
+    post:
+      tags:
+      - "campaigns"
+      summary: "Create new campaign"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Campaign object"
+        required: true
+        schema:
+          $ref: "#/definitions/Campaign"
+      responses:
+        "200":
+          description: "ok"
+  /campaign/{id}:
+    get:
+      tags:
+      - "campaigns"
+      summary: "Get campaign by campaign id"
+      parameters:
+        - in: "path"
+          name: id
+          type: "string"
+          description: "Campaign id"
+          required: true
+      responses:
+        "200":
+          description: "ok"
+          schema:
+            $ref: '#/definitions/Campaign'
+        500:
+          description: error
+    post:
+      tags:
+      - 'campaigns'
+      summary: 'update campaign'
+      parameters:
+      - in: 'path'
+        name: id
+        type: string
+        description: Campaign id
+        required: true
+      - in: body
+        name: body
+        required: true
+        description: Campaign object
+        schema:
+          $ref: '#/definitions/Campaign'
+      responses:
+        200:
+          description: ok
+        500:
+          description: error
+  /campaign/{id}/vote/{option_id}:
+    post:
+      tags:
+      - campaigns
+      summary: New vote for option
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: campaign id
+      - in: path
+        name: option_id
+        type: string
+        description: option id
+        required: true
+      - in: body
+        name: body
+        required: true
+        description: user id
+        schema:
+          properties:
+            user_id:
+              type: string
+      responses:
+        200:
+          description: ok
+        500:
+          description: error
+  /users:
+    get:
+      tags:
+      - user
+      summary: Get all users
+      responses:
+        200:
+          description: List of users
+          schema:
+            items:
+              $ref: '#/definitions/User'
+        500:
+          description: error
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: ok
+        500:
+          description: error
+  /user/{id}:
+    get:
+      tags:
+      - user
+      summary: Get user by id
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      responses:
+        200:
+          description: user
+          schema:
+            $ref: '#/definitions/User'
+        500:
+          description: error
+    post:
+      tags:
+      - user
+      summary: Update user by id
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: ok
+        500:
+          description: error
+definitions:
+  Campaign:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      startTime:
+        type: "string"
+      endTime:
+        type: "string"
+      options:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+    required:
+    - name
+    - startTime
+    - endTime
+  User:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      hkid:
+        type: "string"
+    required:
+    - name
+    - hkid

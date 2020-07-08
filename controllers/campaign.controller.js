@@ -23,7 +23,6 @@ module.exports = {
       }, err => {
         if(err) return next(err);
         return res.json({
-          success: true,
           campaigns
         });
       });
@@ -48,7 +47,6 @@ module.exports = {
         campaign
       });
       res.json({
-        success: true,
         campaign
       });
     });
@@ -65,7 +63,6 @@ module.exports = {
     }, (err, campaign) => {
       if(err) return next(err);
       return res.json({
-        success: true,
         campaign
       });
     });
@@ -77,7 +74,6 @@ module.exports = {
     }, (err, campaign) => {
       if(err) return next(err);
       return res.json({
-        success: true,
         campaign
       });
     });
@@ -125,7 +121,6 @@ module.exports = {
               votes
             });
             return res.json({
-              success: true,
               campaign: campaign
             });
           });
