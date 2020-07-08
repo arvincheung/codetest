@@ -1,7 +1,9 @@
 const async = require('async');
 const moment = require('moment');
+const config = require.main.require('./config');
 const Campaign = require.main.require('./models/campaign.model');
 const User = require.main.require('./models/user.model');
+const emitter = require.main.require('./services/emitter.service');
 
 module.exports = {
   findAll: (req, res, next) => {
@@ -42,6 +44,9 @@ module.exports = {
     var campaign = new Campaign(req.body);
     campaign.save((err, rs) => {
       if(err) return next(err);
+      emitter.emit('new_campaign', {
+        campaign
+      });
       res.json({
         success: true,
         campaign
@@ -100,16 +105,25 @@ module.exports = {
         if(Date.now() > campaign.endTime) return next(new Error('Campaign already ended'));
 
         // Check duplicate votes
+        var vote_id = '';
+        var votes = 0;
         async.each(campaign.options, (option, cb) => {
           if(option.votes.indexOf(user_id) >= 0) return cb(new Error('Duplicate vote'));
           if(option._id == option_id) {
             option.votes.push(user_id);
+            vote_id = option_id;
+            votes = option.votes.length;
           }
           cb();
         }, err => {
           if(err) return next(err);
           campaign.save(err => {
             if(err) return next(err);
+            emitter.emit('new_vote', {
+              campaign_id: campaign._id,
+              vote_id,
+              votes
+            });
             return res.json({
               success: true,
               campaign: campaign

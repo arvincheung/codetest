@@ -8,7 +8,12 @@ services:
     - "30001:8080"
     links:
     - mongo
+    - redis
   mongo:
     image: mongo
     ports:
-    - "27017:27017"
+    - "27017"
+  redis:
+    image: redis
+    ports:
+    - "6379"

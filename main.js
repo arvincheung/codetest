@@ -7,13 +7,16 @@ const assert = require('assert');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-var app = express();
-var server = http.Server(app);
-var io = require('socket.io')(server);
-
 const config = require('./config');
 const db = require('./db');
 
+var app = express();
+var server = http.Server(app);
+var io = require('socket.io')(server, {});
+io.adapter(require('socket.io-redis')({
+  host: process.env.NODE_ENV == 'prod' ? config.redis.prodUrl : config.redis.url,
+  port: config.redis.port
+}));
 
 // check directories
 fs.existsSync(config.logdir) || fs.mkdirSync(config.logdir);
@@ -31,6 +34,7 @@ app.use('/api/v1', [
   require('./routes/user.route'),
   require('./routes')
 ]);
+app.use('/', express.static('public'));
 
 // 404
 app.use((req, res, next) => {
@@ -49,11 +53,14 @@ app.use((err, req, res, next) => {
   });
 });
 
+// database
 mongoose.connect(process.env.NODE_ENV == 'prod' ? config.database.prodUrl : config.database.url, {useNewUrlParser: true});
 // http server
 server.listen(config.port, () => {
   console.log(`Server listening on ${config.port}`);
 });
+// Websockets server
+require('./sockets')(io);
 
 setTimeout(() => {
 }, 2000);
