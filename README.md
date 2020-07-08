@@ -1,5 +1,5 @@
 # codetest
----
+
 ## dev setup
 Run docker compose for mongo
 ```
@@ -10,7 +10,7 @@ Run nodemon for server
 ```
 npm start
 ```
----
+
 ## prod setup
 Run docker compose for both mongo and server
 ```
